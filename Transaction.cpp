@@ -44,7 +44,7 @@ void Transaction::getTransactionID() const {
 	cout << "Номер транзакции: " << transactionID << endl;
 }
 void Transaction::getTransactionamount() const {
-	cout << "Сумма транзакции : " << amount << endl;
+	cout << "Сумма транзакции: " << amount << endl;
 }
 void Transaction::getTransactionInfo() const {
 	cout << "Информация о транзакции: " << endl;

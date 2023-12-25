@@ -31,4 +31,9 @@ int main()
 	sa.processTransaction();
 	cout << "-------------------" << endl;
 	ca.processTransaction();
+	cout << "-------------------" << endl;
+	cout << "Демонстрация работы с файлами: " << endl;
+	Customer c1;
+	c1.SetFromFile("input.txt");
+	c1.OutputToFile("output");
 }

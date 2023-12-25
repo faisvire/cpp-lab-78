@@ -2,6 +2,8 @@
 #include "Customer.h"
 #include "Transaction.h"
 using namespace std;
+#include <iostream>
+#include <fstream>
 size_t LengthString(const char* str);
 void copyString(char* strk2, const char* strk, int strk2Size);
 Customer::Customer() {
@@ -48,6 +50,54 @@ Customer::Customer(const Transaction& transactioncopy) {
 	this->setCustomerowner();
 	phonenumber = 0;
 	this->setCustomerphonenumber();
+}
+void Customer::SetFromFile(const char* name) {
+	ifstream potok(name);
+	if (!potok.is_open()) {
+		cerr << "Невозможно открыть файл";
+		return;
+	}
+	string customercopy;
+	string phonenumbercopy;
+	long long bankaccountIDcopy;
+	potok >> customercopy;
+	potok >> phonenumbercopy;
+	potok >> bankaccountIDcopy;
+	potok.close();
+	this->bankaccountID = bankaccountIDcopy;
+	this->owner = new char[customercopy.length() + 2];
+	strcpy_s(this->owner, customercopy.length() + 2, customercopy.c_str());
+	owner[LengthString(owner)] = '\0';
+	this->phonenumber = new char[phonenumbercopy.length() + 2];
+	strcpy_s(this->phonenumber, phonenumbercopy.length() + 2, phonenumbercopy.c_str());
+	phonenumber[LengthString(phonenumber)] = '\0';
+	cout << "Информация из файла успешно считана" << endl;
+}
+void Customer::OutputToFile(const char* name) {
+	ofstream output(name);
+	if (output.is_open()) {
+		output << "Информация о клиенте: " << endl;
+		if (owner != nullptr) {
+			output << "Имя клиента: ";
+			for (size_t i = 0; owner[i] != '\0'; ++i) {
+				output << owner[i];
+			}
+			output << endl;
+		}
+		else output << "Имя клиента не указано" << endl;
+		if (phonenumber != nullptr) {
+			output << "Телефонный номер клиента: ";
+			for (size_t i = 0; phonenumber[i] != '\0'; ++i) {
+				output << phonenumber[i];
+			}
+			output << endl;
+		}
+		else output << "Телефонный номер клиента не указан" << endl;
+		output << "Номер счета клиента: " << bankaccountID << endl;
+		output.close();
+		cout << "Информация о клиенте успешно записана в файл" << endl;
+	}
+	else cerr << "Невозможно открыть файл для записи";
 }
 void Customer::getCustomerowner() const {
 	if (owner != nullptr) cout << "Имя клиента: " << owner << endl;

@@ -17,6 +17,8 @@ public:
 	Customer(const Customer& customercopy);
 	Customer(const BankAccount& bankacccopy);
 	Customer(const Transaction& transactioncopy);
+	void SetFromFile(const char* name);
+	void OutputToFile(const char* name);
 	void getCustomerowner() const;
 	void getCustomerphonenumber() const;
 	void getCustomerbankaccountID() const;
